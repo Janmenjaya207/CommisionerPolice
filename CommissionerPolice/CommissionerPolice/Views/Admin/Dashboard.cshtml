@@ -1,0 +1,103 @@
+﻿@model CommissionerPolice.Models.DashboardModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+
+
+
+        <div class="content-wrapper">
+            <div class="container-fluid">
+
+                <!--Start Dashboard Content-->
+
+                <div class="row mt-4">
+                    <div class="col-12 col-sm-6 col-lg-6 col-xl-3">
+                        <div class="card bg-dark1 shadow-dark">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body">
+
+                                        <h3 class="text-white">@Model.marriage</h3>
+                                        <span class="text-light">Marriage Applications</span>
+                                    </div>
+                                    <div class="w-icon">
+
+                                        <img src="~/assets/images/mrg.png" class=" text-info" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-6 col-xl-3">
+                        <div class="card bg-dark1 shadow-dark">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body">
+                                        <h3 class="text-white">@Model.funeral</h3>
+                                        <span class="text-light">Funeral Applications</span>
+                                    </div>
+                                    <div class="w-icon">
+
+                                        <img src="~/assets/images/funeral.png" />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-sm-6 col-lg-6 col-xl-3">
+                        <div class="card bg-dark1 shadow-dark">
+                            <div class="card-body">
+                                <div class="media d-flex">
+                                    <div class="media-body">
+                                        <h3 class="text-white">@Model.pending</h3>
+                                        <span class="text-light">Approval Pending</span>
+                                    </div>
+                                    <div class="w-icon">
+
+                                        <img src="~/assets/images/pending.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-6 col-xl-3">
+                        <div class="card bg-dark1 shadow-dark">
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <div class="media d-flex">
+                                        <div class="media-body">
+                                            <h3 class="text-white">@Model.reject</h3>
+                                            <span class="text-light">Rejected Application </span>
+                                        </div>
+                                        <div class="w-icon">
+
+                                            <img src="~/assets/images/reject.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--End Dashboard Content-->
+
+            </div>
+            <!-- End container-fluid-->
+
+        </div><!--End content-wrapper-->
+      
+      
+       
+     
+
+
+
+
+

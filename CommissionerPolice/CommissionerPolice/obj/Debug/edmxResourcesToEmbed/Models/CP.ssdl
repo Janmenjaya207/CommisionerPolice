@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ePermissionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ApplicationDetail">
+    <Key>
+      <PropertyRef Name="ApplicantId" />
+    </Key>
+    <Property Name="ApplicantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApplicationNo" Type="varchar" MaxLength="50" />
+    <Property Name="FunctionType" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="varchar" MaxLength="100" />
+    <Property Name="FathersName" Type="varchar" MaxLength="100" />
+    <Property Name="Address" Type="varchar(max)" />
+    <Property Name="AreaId" Type="int" />
+    <Property Name="Ps_Id" Type="int" />
+    <Property Name="MobileNo" Type="varchar" MaxLength="15" />
+    <Property Name="FunctionDate" Type="datetime" />
+    <Property Name="FromTime" Type="varchar" MaxLength="20" />
+    <Property Name="ToTime" Type="varchar" MaxLength="20" />
+    <Property Name="Duration" Type="varchar" MaxLength="20" />
+    <Property Name="Venue" Type="varchar(max)" />
+    <Property Name="TotalSittingCapacity" Type="int" />
+    <Property Name="WorkingPlaceSize" Type="varchar" MaxLength="100" />
+    <Property Name="TotalParticipant" Type="int" />
+    <Property Name="IdProof" Type="varchar(max)" />
+    <Property Name="AddressProof" Type="varchar(max)" />
+    <Property Name="Remarks" Type="varchar(max)" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="AreaId" />
+    </Key>
+    <Property Name="AreaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AreaName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Files">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="varchar" MaxLength="36" Nullable="false" />
+    <Property Name="FileName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="FileExtension" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="FileTypeId" Type="int" Nullable="false" />
+    <Property Name="FileSize" Type="int" Nullable="false" />
+    <Property Name="FileLocation" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedOn" Type="date" Nullable="false" />
+    <Property Name="ContentType" Type="varchar" MaxLength="100" />
+    <Property Name="SystemFileName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FileType">
+    <Key>
+      <PropertyRef Name="FileTypeId" />
+    </Key>
+    <Property Name="FileTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileTypeName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedOn" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ParticipantDetail">
+    <Key>
+      <PropertyRef Name="ParticipantId" />
+    </Key>
+    <Property Name="ParticipantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApplicantId" Type="int" />
+    <Property Name="ParticipantName" Type="varchar" MaxLength="100" />
+    <Property Name="Age" Type="int" />
+    <Property Name="MobileNo" Type="varchar" MaxLength="15" />
+    <Property Name="NativeDistrict" Type="varchar" MaxLength="50" />
+    <Property Name="PermissionFrom" Type="varchar(max)" />
+    <Property Name="PermissionTo" Type="varchar(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PoliceStattion">
+    <Key>
+      <PropertyRef Name="Ps_Id" />
+    </Key>
+    <Property Name="Ps_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AreaId" Type="int" />
+    <Property Name="Ps_Name" Type="varchar" MaxLength="100" />
+    <Property Name="Ps_Contact_No" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AreaId" Type="int" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="Emaild" Type="varchar" MaxLength="200" />
+    <Property Name="Username" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="20" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ePermission.dbo.vw_ApplicationDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_ApplicationDetail">
+    <Key>
+      <PropertyRef Name="ApplicantId" />
+    </Key>
+    <Property Name="ApplicantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApplicationNo" Type="varchar" MaxLength="50" />
+    <Property Name="FunctionType" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="varchar" MaxLength="100" />
+    <Property Name="MobileNo" Type="varchar" MaxLength="15" />
+    <Property Name="Ps_Id" Type="int" />
+    <Property Name="AreaId" Type="int" />
+    <Property Name="FunctionDate" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Funcdt" Type="datetime" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK_Files_FileType">
+    <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
+    <End Role="Files" Type="Self.Files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FileType">
+        <PropertyRef Name="FileTypeId" />
+      </Principal>
+      <Dependent Role="Files">
+        <PropertyRef Name="FileTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_ApplicationDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="applicationid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ParticipantDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="applicationid" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="ePermissionModelStoreContainer">
+    <EntitySet Name="ApplicationDetail" EntityType="Self.ApplicationDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FileType" EntityType="Self.FileType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ParticipantDetail" EntityType="Self.ParticipantDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PoliceStattion" EntityType="Self.PoliceStattion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vw_ApplicationDetail" EntityType="Self.vw_ApplicationDetail" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_ApplicationDetail].[ApplicantId] AS [ApplicantId], 
+    [vw_ApplicationDetail].[ApplicationNo] AS [ApplicationNo], 
+    [vw_ApplicationDetail].[FunctionType] AS [FunctionType], 
+    [vw_ApplicationDetail].[Name] AS [Name], 
+    [vw_ApplicationDetail].[MobileNo] AS [MobileNo], 
+    [vw_ApplicationDetail].[Ps_Id] AS [Ps_Id], 
+    [vw_ApplicationDetail].[AreaId] AS [AreaId], 
+    [vw_ApplicationDetail].[FunctionDate] AS [FunctionDate], 
+    [vw_ApplicationDetail].[Funcdt] AS [Funcdt], 
+    [vw_ApplicationDetail].[Status] AS [Status]
+    FROM [dbo].[vw_ApplicationDetail] AS [vw_ApplicationDetail]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Files_FileType" Association="Self.FK_Files_FileType">
+      <End Role="FileType" EntitySet="FileType" />
+      <End Role="Files" EntitySet="Files" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

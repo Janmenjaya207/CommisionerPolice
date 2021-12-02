@@ -1,0 +1,475 @@
+﻿
+@{
+    ViewBag.Title = "ApplicationList";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<style>
+    .tdwidth{
+        width:50%!important;
+    }
+    @@media (max-width:576px){
+        .mts {
+            margin-top:0px !important;
+        }
+    }
+    .mts {
+        margin-top:28px;
+    }
+    label {
+        color: #212121;
+        font-weight: 600 !important;
+    }
+
+    a {
+        color: #e0ba00;
+    }
+
+    .rules {
+        color: #b56800 !important;
+        font-weight: 700;
+    }
+
+    @@media (min-width:576px) {
+        .modal-dialog1 {
+            max-width: 800px;
+            margin: 1.75rem auto
+        }
+    }
+
+    .modaloverflow {
+        height: 600px;
+        overflow-y: auto;
+    }
+
+    table.dataTable thead > tr > th {
+        color: #fff;
+        background-color: #223035;
+    }
+
+    .table th {
+        padding: 7px !important;
+    }
+</style>
+<div class="clearfix"></div>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumb-->
+        <!-- End Breadcrumb-->
+        <div class="row pt-4 pb-3">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header"><i class="fa fa-table"></i> Search Application</div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("ApplicationList", "Admin", new { FormMethod.Post }))
+                        {
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Police Station:</label>
+                                    <select name="policestation" id="policestation" class="form-control valid" aria-invalid="false" required>
+                                        <option value="0">--Select Police Station--</option>
+                                        @if (ViewBag.policeStattionsid != null)
+                                        {
+                                            if (ViewBag.policeStattions != null)
+                                            {
+                                                foreach (var item in ViewBag.policeStattions)
+                                                {
+                                                    if (ViewBag.policeStattionsid == item.Ps_Id)
+                                                    {
+                                                        <option value="@item.Ps_Id" selected>@item.Ps_Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@item.Ps_Id">@item.Ps_Name</option>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (ViewBag.policeStattions != null)
+                                            {
+                                                foreach (var item in ViewBag.policeStattions)
+                                                {
+                                                    <option value="@item.Ps_Id">@item.Ps_Name</option>
+                                                }
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary mts"><i class="fa fa-search"></i> Search</button>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        <div class="form-row">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-4 pb-3">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header"><i class="fa fa-table"></i> Applicant List</div>
+                    
+                    <input type="hidden" id="BaseURL" value="@ViewBag.baseurl" />
+                    @if (ViewBag.data == null)
+                    {
+                        <div class="card-body">
+                            <div id="FormOne">
+                                <div class="row">
+                                    <div class="col-md-12">No Application found.</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <div id="default-datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                                    <table id="default-datatable" class="table table-bordered dataTable" role="grid" aria-describedby="default-datatable_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="default-datatable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 46px;">Sl No.</th>
+                                                <th class="sorting" tabindex="0" aria-controls="default-datatable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 91px;">Application<br /> No</th>
+                                                <th class="sorting" tabindex="0" aria-controls="default-datatable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 70px;">Function<br /> Type</th>
+                                                <th class="sorting" tabindex="0" aria-controls="default-datatable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 61px;">Applicant<br /> Name</th>
+                                                <th class="sorting" tabindex="0" aria-controls="default-datatable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 100px;">Mobile No</th>
+                                                <th class="sorting" tabindex="0" aria-controls="default-datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 80px;">Function<br /> Date</th>
+                                                <th class="sorting" tabindex="0" aria-controls="default-datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 70px;">Status</th>
+                                                <th class="sorting" tabindex="0" aria-controls="default-datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 109px;">Application<br /> Details</th>
+                                                <th class="sorting" tabindex="0" aria-controls="default-datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 109px;">Participant<br /> Details</th>
+                                                <th class="sorting" tabindex="0" aria-controls="default-datatable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 109px;">Approve<br />/Reject</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{ int count = 0;}
+                                            @foreach (var item in ViewBag.data)
+                                            {
+                                                count = count + 1;
+                                                <tr role="row" class="even">
+                                                    <td>@count</td>
+                                                    <td class="sorting_1">@item.ApplicationNo</td>
+                                                    <td>@item.FunctionType</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.MobileNo</td>
+                                                    <td>@item.FunctionDate</td>
+                                                    <td>@item.Status</td>
+                                                    <td><a href="#" class="rules" data-toggle="modal" data-target="#fullwarningmodal" onclick="ViewApplication(@item.ApplicantId)">View</a></td>
+                                                    <td><a href="#" class="rules" data-toggle="modal" data-target="#fullwarningmodal1" onclick="ViewApplicant(@item.ApplicantId)">View</a></td>
+                                                    @if (item.Status == "Approved")
+                                                    {
+                                                        <td><span style="color:green;">Approved</span></td>}
+                                                    else if (item.Status == "Rejected")
+                                                    {
+                                                        <td><span style="color:red;">Rejected</span></td>}
+                                                    else
+                                                    {
+                                                        <td><a href="#" class="rules" data-toggle="modal" data-target="#fullwarningmodal2" onclick="Approve(@item.ApplicantId)">Action</a></td>}
+                                                </tr>
+                                            }
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div><!-- End Row-->
+        <div class="modal fade" id="fullwarningmodal">
+            <div class="modal-dialog modal-dialog1">
+                <div class="modal-content bg-default border-warning modaloverflow">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-black"><i class="fa fa-star"></i>View Application Details</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-black">
+                        <div class="table-responsive">
+                            <table id="default-datatable" class="table table-bordered">
+
+                                <tbody id="applicationdtl">
+                                    <tr>
+                                        <td><label>Function type:</label></td>
+                                        <td><label id="functiontype"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Applicant Name:</label></td>
+                                        <td><label id="name"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td> <label>Father's Name:</label></td>
+                                        <td> <label id="fname"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td> <label>Phone Number:</label></td>
+                                        <td> <label id="phone"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>  <label>Address:</label></td>
+                                        <td>  <label id="address"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>  <label>Police Station:</label></td>
+                                        <td>  <label id="policestn"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td> <label>Function Date:</label></td>
+                                        <td> <label id="fdate"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Time From:</label></td>
+                                        <td><label id="timefrom"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td> <label>Time To:</label></td>
+                                        <td> <label id="timeto"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td> <label>Duration:</label></td>
+                                        <td> <label id="Duration"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td> <label>Venue name &amp; details:</label></td>
+                                        <td> <label id="venue"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>  <label>Total Sitting Capacity:</label></td>
+                                        <td>  <label id="sittingcapacity"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>   <label>Working place area (sqr ft/ sqr mtr):</label></td>
+                                        <td>   <label id="workarea"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td> <label>Total no. of participants:</label></td>
+                                        <td> <label id="totalparticipant"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>  <label>APPLICANT ID PROOF:</label></td>
+                                        <td> <a href="" id="idprrof" target="_blank"> View Id Proof</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>  <label>Money receipt of mandap/hotel/residence<br /> or other venue proof for use :</label></td>
+                                        <td>  <a href="" id="addressproof" target="_blank"> View Address Proof</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="fullwarningmodal1">
+            <div class="modal-dialog modal-dialog1">
+                <div class="modal-content bg-default border-warning modaloverflow">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-black"><i class="fa fa-star"></i> View Participant Details(<span id="Noofparticipant"></span>)</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-black">
+                        <div class="table-responsive">
+                            <table id="default-datatable" class="table table-bordered">
+                                <thead class="thead-dark shadow-dark">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Age</th>
+                                        <th>Mobile</th>
+                                        <th>From Address</th>
+                                        <th>To Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="applicantdtl"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="fullwarningmodal2">
+            <div class="modal-dialog modal-dialog1">
+                <div class="modal-content bg-default border-warning modaloverflow">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-black"><i class="fa fa-star"></i> Aprrove/Reject</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-black">
+                        <div>
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Status:</label>
+                                        <input type="hidden" id="applid" />
+                                        <select name="status" id="status" class="form-control valid" aria-invalid="false" required>
+                                            <option value="Approved">Approve</option>
+                                            <option value="Rejected">Reject</option>
+
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Remark:</label>
+                                        <textarea name="Remark" rows="6" cols="10" id="Remark" class="form-control" required></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="AReject()"><i class="fa fa-times"></i> Submit</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cover-spin"></div>
+    </div>
+    <!-- End container-fluid-->
+
+</div><!--End content-wrapper-->
+<!--Start Back To Top Button-->
+<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+<!--End Back To Top Button-->
+<script>
+    function Approve(id) {
+        debugger;
+        $("#applid").val(id);
+    }
+    function ViewApplication(id) {
+        var BaseURL = $("#BaseURL").val();
+        $.ajax({
+            async: false,
+            url: "/Admin/ApplicationDetail",
+            type: "post",
+            dataType: "json",
+            data: { id: id },
+            success: function (app) {
+                $("#functiontype").text(app.FunctionType);
+                $("#name").text(app.Name);
+                $("#fname").text(app.FathersName);
+                $("#phone").text(app.MobileNo);
+                $("#address").text(app.Address);
+                $("#fdate").text(app.FunctionDate);
+                $("#timefrom").text(app.FromTime);
+                $("#timeto").text(app.ToTime);
+                $("#venue").text(app.Venue);
+                $("#sittingcapacity").text(app.TotalSittingCapacity);
+                $("#workarea").text(app.WorkingPlaceSize);
+                $("#totalparticipant").text(app.TotalParticipant);
+                $("#idprrof").attr("href", BaseURL + app.IdProof)
+                $("#addressproof").attr("href", BaseURL + app.AddressProof);
+                $("#Duration").text(app.Duration);
+                $("#policestn").text(app.Ps_Name);
+            }
+        });
+    }
+    function ViewApplicant(id) {
+
+        debugger;
+        $.ajax({
+            async: false,
+            url: "/Admin/ParticipantDetail",
+            type: "post",
+            dataType: "json",
+            data: { id: id },
+            success: function (app) {
+                debugger;
+                $("#applicantdtl").html('');
+                $("#Noofparticipant").text("");
+                if (app.length > 0) {
+                    var data = "";
+                    for (var i = 0; i < app.length; i++) {
+                        data += '<tr>';
+                        data += '<th>' + app[i].ParticipantName + '</th>';
+                        data += '<th>' + app[i].Age + '</th>';
+                        data += '<th>' + app[i].MobileNo + '</th>';
+                        data += '<th>' + app[i].PermissionFrom + '</th>';
+                        data += '<th>' + app[i].PermissionTo + '</th>';
+                        data += '</tr>';
+                    }
+                    $("#applicantdtl").append(data);
+                }
+                $("#Noofparticipant").text("Total Participant - " + app.length);
+            }
+        });
+    }
+    function AReject() {
+        var pcount = 0;
+        if ($("#status").val() == "Approved") {
+            if (confirm("Are you sure want to approve the application  ? ")) {
+                $("#cover-spin").css("display", "block");
+                $.ajax({
+                    type: 'POST',
+                    url: "/Admin/ApproveReject",
+                    data: { id: $("#applid").val(), remark: $("#Remark").val(), status: $("#status").val() },
+                    dataType: "json",
+                    success: function (resultData) {
+                        debugger;
+                        if (resultData == true) {
+                            $("#cover-spin").css("display", "none");
+                            alert("Application approved successfully");
+                            location.href = "/Admin/ApplicationList";
+                        }
+                    }
+                })
+            }
+        }
+        else {
+            if ($("#Remark").val() == "") { alert("Please put your remark"); pcount = 1; }
+            if (pcount != 0) {
+                e.preventDefault();
+                return false;
+            }
+            else {
+                if (confirm("Are you sure want to reject the application  ? ")) {
+                    $("#cover-spin").css("display", "block");
+                    $.ajax({
+                        type: 'POST',
+                        url: "/Admin/ApproveReject",
+                        data: { id: $("#applid").val(), remark: $("#Remark").val(), status: $("#status").val() },
+                        dataType: "json",
+                        success: function (resultData) {
+                            if (resultData == true) {
+                                $("#cover-spin").css("display", "none");
+                                alert("Application rejected successfully");
+                                location.href = "/Admin/ApplicationList";
+                            }
+                        }
+                    })
+                }
+            }
+        }
+    }
+
+</script>

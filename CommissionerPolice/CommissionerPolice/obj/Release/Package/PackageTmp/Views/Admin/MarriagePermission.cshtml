@@ -1,0 +1,215 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Police Commissionerate</title>
+    <!--favicon-->
+    <link rel="icon" href="~/assets/images/favicon.png" type="image/x-icon">
+    <!-- Bootstrap core CSS-->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- animate CSS-->
+    <link href="~/assets/css/animate.css" rel="stylesheet" type="text/css" />
+    <!-- Icons CSS-->
+    <link href="~/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <!-- Custom Style-->
+    <link href="~/assets/css/app-style.css" rel="stylesheet" />
+    <style>
+        @@media (min-width:576px) {
+            .modal-dialog1 {
+                max-width: 800px;
+                margin: 1.75rem auto
+            }
+        }
+
+        p {
+            color: black;
+        }
+
+        hr {
+            border-top: 2px solid #696969;
+        }
+        /*.modaloverflow{
+         height: 600px;
+         overflow-y: auto;
+        } */
+
+        .rules {
+            color: #b56800 !important;
+            font-weight: 700;
+        }
+
+        label {
+            color: #00adb5;
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .btn1 {
+            padding: 6px 10px;
+        }
+
+        .card-authentication2 {
+            max-width: 55rem;
+        }
+
+        .table-bordered td, .table-bordered th {
+            border: 1px solid #3c3c3c;
+            color: black;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Start wrapper-->
+    <div id="wrapper">
+        <div class="card card-authentication2 mx-auto" style="margin-top: 30px;">
+            <div class="card-body">
+                <div class="card-content p-2 overflowheight">
+                    <div class="text-center pb-3"><img src="~/assets/images/policec.png" class="img-fluid"></div>
+                    <h5 style="text-align: center;font-weight: 600;">
+                        POLICE COMMISSIONERATE, BHUBANESWAR-CUTTACK<br>
+                        DY. COMMISSIONER OF POLICE, BHUBANESWAR
+                    </h5>
+                    <hr>
+                    <form>
+                        <div class="form-row">
+
+                            <div class="col-md-12">
+                                <h5 style="text-align: center;font-weight: 700;">(Permission for Marriage Function)</h5>
+                                <p style="text-align: justify;margin-bottom: 20px;">
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;By virtue of powers conferred on the undersigned under Section-29 and sub-Section 2 of
+                                    section 8 of Orissa urban Police Act, 2003 (Orissa Act-8 of 2007), under Order No.:40-3/2020-
+                                    DM-I(A), Govt. of India, Ministry of Home Affairs &amp; Order No.: 2057/R&amp;DM (DM),DATE-
+                                    19.04.2021 of Government of Odisha Office of Special Relief Commissioner, read with permission
+                                    is herby granted in accordance with the Marriage Function at the below noted place within the
+                                    areas of Commissionerate of Police, U.P.D, Bhubaneswar on the regulations of govt. of India /Govt.
+                                    of Odisha pertaining to Covid-19 as per details below, on the following terms and conditions.:
+                                </p>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+
+
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table id="default-datatable" class="table table-bordered">
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1.</td>
+                                                        <td>
+                                                            Name &amp; address of the applicant with<br>
+                                                            Land Line Telephone/Mobile Phone No.
+                                                        </td>
+                                                        <td>
+                                                            Name: @ViewBag.Name<br>
+                                                            S/O- @ViewBag.fName<br>
+                                                            Address: @ViewBag.address
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2.</td>
+                                                        <td>
+                                                            Date, time and duration of Marriage
+                                                            Function.
+                                                        </td>
+                                                        <td>
+                                                            Date: @ViewBag.date<br>
+                                                            Time-@ViewBag.from to @ViewBag.to.<br>
+                                                            Duration-@ViewBag.Duration
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3.</td>
+                                                        <td>Place of Funeral Function.</td>
+                                                        <td>
+                                                            @ViewBag.venue
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4.</td>
+                                                        <td>
+                                                            Number of Participants permitted to<br>
+                                                            attend the Funeral Function
+                                                        </td>
+                                                        <td>@ViewBag.participant Persons.</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>5.</td>
+                                                        <td>
+                                                            Whether permitted to use<br>
+                                                            loudspeaker or not.
+                                                        </td>
+                                                        <td>No.</td>
+
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- <button class="btn btn-warning m-1" data-toggle="modal" data-target="#fullwarningmodal">Warning</button> -->
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!-- <div class="form-row">
+
+                        </div> -->
+                        <!-- <div class="form-row mr-0 ml-0">
+                         <div class="form-group col-md-6 col-xs-12">
+                           <div class="demo-checkbox">
+                                  <input type="checkbox" id="user-checkbox" class="filled-in chk-col-primary" checked="" />
+                                  <label for="user-checkbox">Remember me</label>
+                          </div>
+                         </div>
+                         <div class="form-group col-md-6 col-xs-12 text-right">
+                          <a href="reset-password.php">Reset Password</a>
+                         </div>
+                        </div> -->
+
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Start Back To Top Button-->
+        <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+        <!--End Back To Top Button-->
+    </div><!--wrapper-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
+

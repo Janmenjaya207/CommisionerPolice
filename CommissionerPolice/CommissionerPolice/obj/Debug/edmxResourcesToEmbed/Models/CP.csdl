@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ePermissionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ePermissionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ApplicationDetails" EntityType="ePermissionModel.ApplicationDetail" />
+    <EntitySet Name="Areas" EntityType="ePermissionModel.Area" />
+    <EntitySet Name="Files" EntityType="ePermissionModel.File" />
+    <EntitySet Name="FileTypes" EntityType="ePermissionModel.FileType" />
+    <EntitySet Name="ParticipantDetails" EntityType="ePermissionModel.ParticipantDetail" />
+    <EntitySet Name="PoliceStattions" EntityType="ePermissionModel.PoliceStattion" />
+    <EntitySet Name="Users" EntityType="ePermissionModel.User" />
+    <EntitySet Name="vw_ApplicationDetail" EntityType="ePermissionModel.vw_ApplicationDetail" />
+    <AssociationSet Name="FK_Files_FileType" Association="ePermissionModel.FK_Files_FileType">
+      <End Role="FileType" EntitySet="FileTypes" />
+      <End Role="File" EntitySet="Files" />
+    </AssociationSet>
+    <FunctionImport Name="sp_ApplicationDetail" ReturnType="Collection(ePermissionModel.sp_ApplicationDetail_Result)">
+      <Parameter Name="applicationid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ParticipantDetail" ReturnType="Collection(ePermissionModel.sp_ParticipantDetail_Result)">
+      <Parameter Name="applicationid" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="ApplicationDetail">
+    <Key>
+      <PropertyRef Name="ApplicantId" />
+    </Key>
+    <Property Name="ApplicantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ApplicationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FunctionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FathersName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="AreaId" Type="Int32" />
+    <Property Name="Ps_Id" Type="Int32" />
+    <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="FunctionDate" Type="DateTime" Precision="3" />
+    <Property Name="FromTime" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ToTime" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Duration" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Venue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TotalSittingCapacity" Type="Int32" />
+    <Property Name="WorkingPlaceSize" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TotalParticipant" Type="Int32" />
+    <Property Name="IdProof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="AddressProof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="AreaId" />
+    </Key>
+    <Property Name="AreaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="File">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="false" />
+    <Property Name="FileName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FileExtension" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FileTypeId" Type="Int32" Nullable="false" />
+    <Property Name="FileSize" Type="Int32" Nullable="false" />
+    <Property Name="FileLocation" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ContentType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SystemFileName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="FileType" Relationship="ePermissionModel.FK_Files_FileType" FromRole="File" ToRole="FileType" />
+  </EntityType>
+  <EntityType Name="FileType">
+    <Key>
+      <PropertyRef Name="FileTypeId" />
+    </Key>
+    <Property Name="FileTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Files" Relationship="ePermissionModel.FK_Files_FileType" FromRole="FileType" ToRole="File" />
+  </EntityType>
+  <EntityType Name="ParticipantDetail">
+    <Key>
+      <PropertyRef Name="ParticipantId" />
+    </Key>
+    <Property Name="ParticipantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ApplicantId" Type="Int32" />
+    <Property Name="ParticipantName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="NativeDistrict" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PermissionFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PermissionTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PoliceStattion">
+    <Key>
+      <PropertyRef Name="Ps_Id" />
+    </Key>
+    <Property Name="Ps_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AreaId" Type="Int32" />
+    <Property Name="Ps_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Ps_Contact_No" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AreaId" Type="Int32" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Emaild" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vw_ApplicationDetail">
+    <Key>
+      <PropertyRef Name="ApplicantId" />
+    </Key>
+    <Property Name="ApplicantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ApplicationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FunctionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Ps_Id" Type="Int32" />
+    <Property Name="AreaId" Type="Int32" />
+    <Property Name="FunctionDate" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Funcdt" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_Files_FileType">
+    <End Type="ePermissionModel.FileType" Role="FileType" Multiplicity="1" />
+    <End Type="ePermissionModel.File" Role="File" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FileType">
+        <PropertyRef Name="FileTypeId" />
+      </Principal>
+      <Dependent Role="File">
+        <PropertyRef Name="FileTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_ApplicationDetail_Result">
+    <Property Type="Int32" Name="ApplicantId" Nullable="false" />
+    <Property Type="String" Name="ApplicationNo" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="FunctionType" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="FathersName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address" Nullable="true" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="MobileNo" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="FunctionDate" Nullable="true" MaxLength="4000" />
+    <Property Type="String" Name="FromTime" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="ToTime" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Venue" Nullable="true" />
+    <Property Type="String" Name="WorkingPlaceSize" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="TotalSittingCapacity" Nullable="true" />
+    <Property Type="String" Name="IdProof" Nullable="true" />
+    <Property Type="String" Name="AddressProof" Nullable="true" />
+    <Property Type="String" Name="Status" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="TotalParticipant" Nullable="true" />
+    <Property Type="String" Name="Duration" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="Ps_Id" Nullable="true" />
+    <Property Type="String" Name="Ps_Name" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="AreaId" Nullable="true" />
+    <Property Type="String" Name="Ps_Contact_No" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Remarks" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ParticipantDetail_Result">
+    <Property Type="String" Name="ParticipantName" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="Age" Nullable="true" />
+    <Property Type="String" Name="MobileNo" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="NativeDistrict" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="PermissionFrom" Nullable="true" />
+    <Property Type="String" Name="PermissionTo" Nullable="true" />
+  </ComplexType>
+</Schema>

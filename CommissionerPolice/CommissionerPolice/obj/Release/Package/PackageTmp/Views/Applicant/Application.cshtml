@@ -1,0 +1,680 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Police Commissionerate</title>
+    <!--favicon-->
+    <link rel="icon" href="~/assets/images/favicon.png" type="image/x-icon">
+    <!-- Bootstrap core CSS-->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- animate CSS-->
+    <link href="~/assets/css/animate.css" rel="stylesheet" type="text/css" />
+    <!-- Icons CSS-->
+    <link href="~/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <!-- Custom Style-->
+    <link href="~/assets/css/app-style.css" rel="stylesheet" />
+    <link href="~/assets/css/loader.css" rel="stylesheet" />
+    <link href="~/assets/css/ribbon.css" rel="stylesheet" />
+
+    <style>
+        @@media (max-width:767px){
+            .waves-light{
+                margin-top:6px;
+            }
+        }
+        @@media (min-width:576px) {
+            .modal-dialog1 {
+                max-width: 800px;
+                margin: 1.75rem auto
+            }
+        }
+
+        p {
+            color: black;
+        }
+
+        .modaloverflow {
+            height: 600px;
+            overflow-y: auto;
+        }
+
+        .overflowheight {
+            height: 600px;
+            overflow-y: auto;
+        }
+
+        .rules {
+            color: #b56800 !important;
+            font-weight: 700;
+        }
+
+        label {
+            color: #00adb5;
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .btn1 {
+            padding: 6px 10px;
+        }
+    </style>
+
+</head>
+<body style="background-image: url(../assets/images/2.jpg); background-size: cover;">
+    <!-- Start wrapper-->
+    <div id="wrapper" class="container">
+        <div class="card card-authentication2 ribbon-box mx-auto" style="margin-top: 30px;">
+            <div class="ribbon ribbon-custom">e-License</div>
+
+            <div class="card-body">
+                <div class="card-content p-2 overflowheight">
+                    <div class="text-center pb-3"><img src="~/assets/images/policeblack.png" class="img-fluid"></div>
+                    <form action="/Applicant/Application" enctype="multipart/form-data" method="post">
+                        @Html.AntiForgeryToken()
+                        @{string confirmMessage = Convert.ToString(TempData["Message"]); }
+                        @if (!string.IsNullOrEmpty(confirmMessage))
+                        {
+                            <div class="alert alert-success alert-dismissable" id="divSuccessMessage">
+                                @confirmMessage
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            </div>
+                        }
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Function type:</label>
+                                    <select name="functype" id="functype" class="form-control valid" aria-invalid="false" onchange="CheckFunction()" required>
+                                        <option value="Marriage">Marriage</option>
+                                        <option value="Funeral">Funeral</option>
+                                        @*<option value="Thread">Thread</option>*@
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Applicant Name:</label>
+                                    <input type="text" id="appname" name="appname" class="form-control" placeholder="Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Father's Name:</label>
+                                    <input type="text" id="fname" name="fname" class="form-control" placeholder="Father's Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Phone Number:</label>
+                                    <input type="text" id="phone" name="phone" class="form-control allow_numeric" placeholder="Phone Number" maxlength="10" required>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Address:</label>
+                                    <textarea name="address" rows="2" cols="10" id="address" class="form-control" required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>City:</label>
+                                    <select name="area" id="area" class="form-control valid" aria-invalid="false" onchange="BindPoliceStation()" required>
+                                        @if (ViewBag.Areas != null)
+                                        {
+                                            foreach (var item in ViewBag.Areas)
+                                            {
+                                                <option value="@item.AreaId">@item.AreaName</option>
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="bbsr">
+                                <div class="form-group">
+                                    <label>Police Station:</label>
+                                    <select name="policestation" id="policestation" class="form-control valid" aria-invalid="false" required>
+                                        @if (ViewBag.policeStattions != null)
+                                        {
+                                            foreach (var item in ViewBag.policeStattions)
+                                            {
+                                                <option value="@item.Ps_Id">@item.Ps_Name</option>
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="ctc" style="display:none;">
+                                <div class="form-group">
+                                    <label>Police Station:</label>
+                                    <select name="policestation2" id="policestation2" class="form-control valid" aria-invalid="false" required>
+                                        @if (ViewBag.policeStattions2 != null)
+                                        {
+                                            foreach (var item in ViewBag.policeStattions2)
+                                            {
+                                                <option value="@item.Ps_Id">@item.Ps_Name</option>
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Function Date:</label>
+                                    <input type="Date" id="funcdate" name="funcdate" class="form-control" placeholder="Function Date" onchange="CheckDate()" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Time From:</label>
+                                    <input type="time" id="timefrom" name="timefrom" class="form-control Time1" onchange="calculate()" required>
+
+                                    @*<input type="text" id="timefrom" name="timefrom" class="form-control" placeholder="Time From(Format : 12:00 AM)" required>*@
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Time To:</label>
+                                    <input type="time" id="timeto" name="timeto" class="form-control Time2" onchange="calculate()" required>
+                                    @*<input type="text" id="timeto" name="timeto" class="form-control" placeholder="Time To(Format : 12:00 PM)" required>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Duration:</label>
+                                    <input type="text" id="Duration" name="Duration" class="form-control" placeholder="Duration" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <label>Venue name & details:</label>
+                                    <textarea name="venue" rows="2" cols="10" id="venue" onkeyup="BindTo()" class="form-control" required></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Total Sitting Capacity:</label>
+                                    <input type="text" id="sitting" name="sitting" class="form-control allow_numeric" placeholder="Sitting Capacity" required>
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <label>Working place area (sqr ft/ sqr mtr):</label>
+                                    <input type="text" id="workplace" name="workplace" class="form-control" placeholder="Working place area (sqr ft/ sqr mtr)" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <label>Total no. of participants:</label>
+                                    <input type="hidden" id="totalp" />
+                                    <input type="text" id="totalparticipant" name="totalparticipant" class="form-control allow_numeric" placeholder="Total participants" value="25" readonly="readonly">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <label>APPLICANT ID PROOF:</label>
+                                    <input type="file" id="idproof" name="idproof" class="form-control" placeholder="ID Proof" onchange="IdProof()" required>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <label>Money receipt of mandap/hotel/residence or other venue proof for use :</label>
+                                    <input type="file" id="addressproof" name="addressproof" class="form-control" placeholder="Address Proof" onchange="AddressProof()" required>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+
+                                    <label>Total participant list :</label>
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table id="default-datatable" class="table table-bordered">
+                                                <thead class="thead-dark shadow-dark">
+                                                    <tr>
+                                                        <th>NAME OF PARTICIPANT</th>
+                                                        <th>AGE</th>
+                                                        <th>MOBILE NO.</th>
+                                                        <th>FROM ADDRESS</th>
+                                                        @*<th>PERMISSION TO</th>*@
+                                                        <th>ACTION</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="participant">
+                                                    <tr>
+                                                        <td><input type="text" class="form-control" name="partname" id="partname" required></td>
+                                                        <td><input type="text" class="form-control allow_numeric" onchange="checklimit1()" name="age" id="age" maxlength="2" required></td>
+                                                        <td><input type="text" class="form-control allow_numeric" name="mobileno" id="mobileno" maxlength="10" required></td>
+                                                        <td><input type="text" class="form-control" name="from" id="from" required></td>
+                                                        @*<td><input type="text" class="form-control" name="to" id="to" readonly="readonly"></td>*@
+                                                        <td><button type="button" class="btn btn-warning btn1  m-1" onclick="AddRow()"><i class="fa fa-plus"></i></button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="demo-checkbox">
+                                            <input type="checkbox" id="user-checkbox" class="filled-in chk-col-primary" required>
+                                            <label for="user-checkbox">
+                                                Agree with <a class="rules" data-toggle="modal" data-target="#fullwarningmodal">rules and regulations</a> of Govt. of Odisha/Govt. of India issued from time to
+                                                time in connection with Covid-19
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- <button class="btn btn-warning m-1" data-toggle="modal" data-target="#fullwarningmodal">Warning</button> -->
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-8 d-xs-none">
+                            </div>
+                            <div class="col-md-2 col-xs-6">
+                                <button type="submit" class="btn btn-success btn-round btn-block waves-effect waves-light" onclick="SaveData()">Submit</button>
+                            </div>
+                            <div class="col-md-2 col-xs-6">
+                                <a href="/Admin/Login" class="btn btn-primary btn-round btn-block waves-effect waves-light">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="fullwarningmodal">
+                            <div class="modal-dialog modal-dialog1">
+                                <div class="modal-content bg-default border-warning modaloverflow">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-black"><i class="fa fa-star"></i> Terms & Conditions</h5>
+                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-black">
+                                        <p>
+                                            <b>1.</b> That the Marriage  Programme shall comply the Govt. of Odisha Office of SRC, Order No.:2669/R&DM (DM) dated 18th May 2021. The Marriage  programme related gathering shall ensure social distancing and the maximum number of guests allowed shall not be more than 25(for the entire event) including host, family members, guests, priests and catering and other support staff  during the Marriage  Programme as applied by the applicant.
+                                        </p>
+                                        <p>
+                                            <b>2.</b> In Closed spaces, a maximum of 50% of the hall capacity will be allowed subject to the above
+                                            Ceilings .
+                                        </p>
+                                        <p>
+                                            <b>3.</b> In Open spaces, Keeping the size of the ground/Open space view, appropriate number of persons
+                                            will be allowed, subject to the above ceilings, so as to ensure maintenance of prescribed physical
+                                            distancing norm .
+                                        </p>
+                                        <p>
+                                            <b>4.</b> You Shall abide by the rules and regulations of Govt. of Odisha/Govt. of India issued from time to
+                                            time in connection with Covid-19 .
+                                        </p>
+                                        <p><b>5.</b> At least two-meter distance to be maintained between individuals particularly in Marriage Function.</p>
+                                        <p><b>6.</b> All persons attending such functions shall put on masks.</p>
+                                        <p><b>7.</b> Persons from containment zone shall not be allowed to attend the event.</p>
+                                        <p><b>8.</b> Chewing of Gutka, Paan and Spitting in Public places is strictly prohibited.</p>
+                                        <p>
+                                            <b>9.</b> All religious Places/places of worship shall be closed for public Religious Congregations are strictly
+                                            prohibited.
+                                        </p>
+                                        <p>
+                                            <b>10.</b> Provision for thermal scanning, hand wash and sanitizer will be made at all entry and exit points and
+                                            common areas.
+                                        </p>
+
+                                        <p>
+                                            <b>11.</b> Frequent sanitization of entire workplace, common facilities and all points which come into human
+                                            contact e.g. door handles etc,. shall be ensured, including between shifts.
+                                        </p>
+                                        <p>
+                                            <b>12.</b> 
+                                            <b>That during the Marriage Function ,no community feast shall be organized nor any food shall be served in the venue, Only take away food shall be allowed to the guests.</b>
+                                        </p>
+                                        <p>
+                                            <b>13.</b> Persons above 65 years of age, persons with co-morbidities, pregnant women, and children below
+                                            the age of 10 years shall stay at home, not attended in Marriage function that strictly prohibited.
+                                        </p>
+                                        <p>
+                                            <b>14.</b> With a view to ensuring safety in participants or guest at work places, on best effort basis should
+                                            ensure that Aarogya Setu is installed by all Participants or Guest having compatible mobile phones.
+                                            i.e Aarogya Setu enables early identification of potential risk of infection and thus acts as a shield
+                                            for individuals and the community.
+                                        </p>
+                                        <p>
+                                            <b>15.</b> That the Marriage Function Shall originate and terminate at specified place, to the timings
+                                            indicated in the permission without obstructing the free flow of traffic. After elapse of the
+                                            duration of time herein granted if such Marriage Function etc. continues to operate, the
+                                            undersigned reserves the right to declare the said Marriage Function as unlawful and would take
+                                            action as per law with Covid-19.
+                                        </p>
+                                        <p>
+                                            <b>16.</b> That during the Marriage Function and at the place of assembly, there shall be no inflammatory
+                                            speech or provocative sloganeering or display of placard/poster etc. which could incite communal,
+                                            caste, ethnic violence etc.
+                                        </p>
+                                        <p>
+                                            <b>17.</b> That applicant provide sufficient drinking water, Masks, sanitization should be arranged during
+                                            Marriage Function or at the place assembly etc.
+                                        </p>
+                                        <p><b>18.</b> That the applicant shall install C.C. TV on function and get recording of the entire function.</p>
+                                        <p>
+                                            <b>19.</b> A list of attenders of the Marriage function with contact details has to be maintained and
+                                            their contact numbers be shared with local Police Station.
+                                        </p>
+                                        <p>
+                                            <b>20.</b> The list shall be conspicuously displayed at prominent locations of the venue which can be easily
+                                            read by public from a distance of ten(10) feet.
+                                        </p>
+                                        <p><b>21.</b> FIRST AID Facility to be provided.</p>
+                                        <p><b>22.</b> That there shall not be exhibition of Fire Works to avoid public casualty during Function.</p>
+                                        <p><b>23.</b> A Nodal Person shall be identified for overseeing the arrangements and coordination at the Venue.</p>
+                                        <p>
+                                            <b>24.</b> The permission shall automatically be cancelled if the venue comes under contentment
+                                            Area.
+                                        </p>
+                                        <p>
+                                            <b>25.</b> That in case of any deviation or violation of the terms and conditions, the permission so granted
+                                            shall stand automatically cancelled and the organizers, Participants or guest will be liable to be
+                                            prosecuted under the provisions of Section 51 to 60 of the Disaster Management Act,2005,
+                                            besides legal action under Sec. 188 of the IPC, and other legal provisions as applicable Extracts of
+                                            these penal provisions are At Annexure-13.
+                                        </p>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="cover-spin"></div>
+        <!--Start Back To Top Button-->
+        <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+        <!--End Back To Top Button-->
+    </div><!--wrapper-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
+<script>
+    $(document).ready(function () {
+        $("#totalp").val(25);
+    })
+    var count = 0;
+    function AddRow() {
+        //var venue = $("#venue").val();
+        var partname = document.getElementsByName("partname");
+        var age = document.getElementsByName("age");
+        var mobileno = document.getElementsByName("mobileno");
+        var from = document.getElementsByName("from");
+        //var to = document.getElementsByName("to");
+        var total_participant = $("#totalp").val();
+        if (total_participant == partname.length) {
+            alert("No more Participants can be added according to selected function type.");
+            return false;
+        }
+        else {
+            var count1 = 0;
+            for (var i = 0; i < partname.length; i++) {
+                if (partname[i].value == "") {
+                    count1 = 1;
+                }
+                if (age[i].value == "") {
+                    count1 = 1;
+                }
+                if (mobileno[i].value == "") {
+                    count1 = 1;
+                }
+                if (from[i].value == "") {
+                    count1 = 1;
+                }
+                //if (to[i].value == "") {
+                //    count1 = 1;
+                //}
+            }
+            if (count1 == 0) {
+                count = count + 1;
+                var data = '<tr id="tr_' + count + '">';
+                data += '<td><input type="text" class="form-control" name="partname" id="partname" required></td>';
+                data += '<td><input type="text" class="form-control allow_numeric" name="age" id="age' + count + '" onclick="checkage(' + count + ')" onchange="checklimit(' + count + ')" maxlength="2" required></td>';
+                data += '<td><input type="text" class="form-control allow_numeric" name="mobileno" id="mobileno' + count + '" onclick="checkmobile(' + count + ')" maxlength="10" required></td>';
+                data += '<td><input type="text" class="form-control from" name="from" id="from" required></td>';
+                //data += '<td><input type="text" class="form-control to" name="to" id="to" readonly="readonly" value="' + venue+'"></td>';
+                data += '<td><button type="button" class="btn btn-danger btn1  m-1" onclick="remove(' + count + ')"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-warning btn1  m-1" onclick="AddRow()"><i class="fa fa-plus"></i></button></td>';
+                data += '</tr>';
+
+                $("#participant").append(data);
+            }
+            else {
+                alert("Please fill all the details of participant");
+                return false;
+            }
+        }
+    }
+    function remove(id) {
+        $("#tr_" + id).remove();
+    }
+    $(".allow_numeric").keypress(function (e) {
+        //if the letter is not digit then display error and don't type anything
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            //display error message
+            return false;
+        }
+    });
+    $(".allow_decimal").on("input", function (evt) {
+        var self = $(this);
+        self.val(self.val().replace(/[^0-9\.]/g, ''));
+        if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
+            evt.preventDefault();
+        }
+    });
+    function checkage(id) {
+        var data = $("#age" + id);
+        data.keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                return false;
+            }
+        });    
+    }
+
+    function checklimit1() {
+        debugger;
+        var data = $("#age");
+        if (data[0].value < 10 || data[0].value > 65) {
+            alert("Age limit should within 10 to 65");
+            $("#age").val("");
+        }
+    }
+    function checklimit(id) {
+        debugger;
+        var data = $("#age"+id);
+        if (data[0].value < 10 || data[0].value > 65) {
+            alert("Age limit should within 10 to 65");
+            $("#age" + id).val("");
+        }
+    }
+    
+    function checkmobile(id) {
+        var data = $("#mobileno" + id);
+        data.keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                return false;
+            }
+        });
+    }
+    function SaveData(e) {
+        var data = $("#user-checkbox");
+
+        if (data[0].checked == false) {
+            alert("Please check the terms & conditions");
+            e.preventDefault();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    function IdProof() {
+        var data = document.getElementById('idproof');
+        var imgbytes = data.files[0].size;
+        var imgkbytes = Math.round(parseInt(imgbytes) / 1024);
+        if (imgkbytes > 200) {
+            alert("Maximum image size should be less than or equal to 200" + ' KB');
+            $("#idproof").val(null);
+            return false;
+        }
+    }
+
+    function AddressProof() {
+        var data = document.getElementById('addressproof');
+        var imgbytes = data.files[0].size;
+        var imgkbytes = Math.round(parseInt(imgbytes) / 1024);
+        if (imgkbytes > 200) {
+            alert("Maximum image size should be less than or equal to 200" + ' KB');
+            $("#addressproof").val(null);
+            return false;
+        }
+    }
+    function CheckFunction() {
+        if ($("#functype").val() == "Marriage") {
+            $("#totalparticipant").val(25);
+            $("#totalp").val(25);
+        }
+        else {
+            $("#totalparticipant").val(20);
+            $("#totalp").val(20);
+        }
+    }
+    function CheckDate() {
+        $("#cover-spin").css("display", "block");
+        var funcdate = $("#funcdate").val();
+        $.ajax({
+            type: 'POST',
+            url: "/Applicant/CheckDate",
+            data: { funcdate: funcdate, functype: $("#functype").val() },
+            dataType: "json",
+            success: function (resultData) {
+                if (resultData == true) {
+                    $("#cover-spin").css("display", "none");
+                }
+                if (resultData == false) {
+                    if ($("#functype").val() == "Marriage") {
+                        $("#cover-spin").css("display", "none");
+                        alert("Marriage application should submit before 72 hours of function date");
+                        $("#funcdate").val("");
+                    }
+                    else {
+                        $("#cover-spin").css("display", "none");
+                        alert("Funeral application should submit before 48 hours of function date");
+                        $("#funcdate").val("");
+                    }
+                }
+            }
+        })
+    }
+    function BindPoliceStation() {
+        if ($("#area").val() == "1") {
+            $("#bbsr").css("display","block");
+            $("#ctc").css("display", "none");
+        }
+        else {
+            $("#bbsr").css("display", "none");
+            $("#ctc").css("display", "block");
+        }
+    }
+    //function BindTo() {
+    //    var data = $("#venue").val();
+    //    $("#to").val(data);
+    //}
+    function calculate() {
+        var time1 = $(".Time1").val().split(':'), time2 = $(".Time2").val().split(':');
+        var hours1 = parseInt(time1[0], 10),
+            hours2 = parseInt(time2[0], 10),
+            mins1 = parseInt(time1[1], 10),
+            mins2 = parseInt(time2[1], 10);
+        var hours = hours2 - hours1, mins = 0;
+
+        // get hours
+        if (hours < 0) hours = 24 + hours;
+
+        // get minutes
+        if (mins2 >= mins1) {
+            mins = mins2 - mins1;
+        }
+        else {
+            mins = (mins2 + 60) - mins1;
+            hours--;
+        }
+
+        // convert to fraction of 60
+        mins = mins / 60;
+
+        hours += mins;
+        hours = hours.toFixed(2);
+        //$(".Hours").val(hours);
+        //alert(hours);
+        if (hours != "NaN") {
+            $("#Duration").val(hours + " " + "Hours");
+        }
+    }
+</script>
+

@@ -1,0 +1,580 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ePermissionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApplicationDetail">
+          <Key>
+            <PropertyRef Name="ApplicantId" />
+          </Key>
+          <Property Name="ApplicantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationNo" Type="varchar" MaxLength="50" />
+          <Property Name="FunctionType" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="FathersName" Type="varchar" MaxLength="100" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="AreaId" Type="int" />
+          <Property Name="Ps_Id" Type="int" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="15" />
+          <Property Name="FunctionDate" Type="datetime" />
+          <Property Name="FromTime" Type="varchar" MaxLength="20" />
+          <Property Name="ToTime" Type="varchar" MaxLength="20" />
+          <Property Name="Duration" Type="varchar" MaxLength="20" />
+          <Property Name="Venue" Type="varchar(max)" />
+          <Property Name="TotalSittingCapacity" Type="int" />
+          <Property Name="WorkingPlaceSize" Type="varchar" MaxLength="100" />
+          <Property Name="TotalParticipant" Type="int" />
+          <Property Name="IdProof" Type="varchar(max)" />
+          <Property Name="AddressProof" Type="varchar(max)" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="AreaId" />
+          </Key>
+          <Property Name="AreaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AreaName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Files">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="varchar" MaxLength="36" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FileExtension" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FileTypeId" Type="int" Nullable="false" />
+          <Property Name="FileSize" Type="int" Nullable="false" />
+          <Property Name="FileLocation" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedOn" Type="date" Nullable="false" />
+          <Property Name="ContentType" Type="varchar" MaxLength="100" />
+          <Property Name="SystemFileName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FileType">
+          <Key>
+            <PropertyRef Name="FileTypeId" />
+          </Key>
+          <Property Name="FileTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileTypeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParticipantDetail">
+          <Key>
+            <PropertyRef Name="ParticipantId" />
+          </Key>
+          <Property Name="ParticipantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicantId" Type="int" />
+          <Property Name="ParticipantName" Type="varchar" MaxLength="100" />
+          <Property Name="Age" Type="int" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="15" />
+          <Property Name="NativeDistrict" Type="varchar" MaxLength="50" />
+          <Property Name="PermissionFrom" Type="varchar(max)" />
+          <Property Name="PermissionTo" Type="varchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PoliceStattion">
+          <Key>
+            <PropertyRef Name="Ps_Id" />
+          </Key>
+          <Property Name="Ps_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AreaId" Type="int" />
+          <Property Name="Ps_Name" Type="varchar" MaxLength="100" />
+          <Property Name="Ps_Contact_No" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AreaId" Type="int" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Emaild" Type="varchar" MaxLength="200" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ePermission.dbo.vw_ApplicationDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_ApplicationDetail">
+          <Key>
+            <PropertyRef Name="ApplicantId" />
+          </Key>
+          <Property Name="ApplicantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationNo" Type="varchar" MaxLength="50" />
+          <Property Name="FunctionType" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="15" />
+          <Property Name="Ps_Id" Type="int" />
+          <Property Name="AreaId" Type="int" />
+          <Property Name="FunctionDate" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Funcdt" Type="datetime" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_Files_FileType">
+          <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
+          <End Role="Files" Type="Self.Files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileType">
+              <PropertyRef Name="FileTypeId" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="FileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_ApplicationDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="applicationid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ParticipantDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="applicationid" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ePermissionModelStoreContainer">
+          <EntitySet Name="ApplicationDetail" EntityType="Self.ApplicationDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileType" EntityType="Self.FileType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParticipantDetail" EntityType="Self.ParticipantDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PoliceStattion" EntityType="Self.PoliceStattion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_ApplicationDetail" EntityType="Self.vw_ApplicationDetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_ApplicationDetail].[ApplicantId] AS [ApplicantId], 
+    [vw_ApplicationDetail].[ApplicationNo] AS [ApplicationNo], 
+    [vw_ApplicationDetail].[FunctionType] AS [FunctionType], 
+    [vw_ApplicationDetail].[Name] AS [Name], 
+    [vw_ApplicationDetail].[MobileNo] AS [MobileNo], 
+    [vw_ApplicationDetail].[Ps_Id] AS [Ps_Id], 
+    [vw_ApplicationDetail].[AreaId] AS [AreaId], 
+    [vw_ApplicationDetail].[FunctionDate] AS [FunctionDate], 
+    [vw_ApplicationDetail].[Funcdt] AS [Funcdt], 
+    [vw_ApplicationDetail].[Status] AS [Status]
+    FROM [dbo].[vw_ApplicationDetail] AS [vw_ApplicationDetail]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Files_FileType" Association="Self.FK_Files_FileType">
+            <End Role="FileType" EntitySet="FileType" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ePermissionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ApplicationDetail">
+          <Key>
+            <PropertyRef Name="ApplicantId" />
+          </Key>
+          <Property Name="ApplicantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FunctionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FathersName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AreaId" Type="Int32" />
+          <Property Name="Ps_Id" Type="Int32" />
+          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FunctionDate" Type="DateTime" Precision="3" />
+          <Property Name="FromTime" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ToTime" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Duration" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Venue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TotalSittingCapacity" Type="Int32" />
+          <Property Name="WorkingPlaceSize" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TotalParticipant" Type="Int32" />
+          <Property Name="IdProof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AddressProof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="AreaId" />
+          </Key>
+          <Property Name="AreaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FileExtension" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FileTypeId" Type="Int32" Nullable="false" />
+          <Property Name="FileSize" Type="Int32" Nullable="false" />
+          <Property Name="FileLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ContentType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SystemFileName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FileType" Relationship="Self.FK_Files_FileType" FromRole="Files" ToRole="FileType" />
+        </EntityType>
+        <EntityType Name="FileType">
+          <Key>
+            <PropertyRef Name="FileTypeId" />
+          </Key>
+          <Property Name="FileTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Files" Relationship="Self.FK_Files_FileType" FromRole="FileType" ToRole="Files" />
+        </EntityType>
+        <EntityType Name="ParticipantDetail">
+          <Key>
+            <PropertyRef Name="ParticipantId" />
+          </Key>
+          <Property Name="ParticipantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicantId" Type="Int32" />
+          <Property Name="ParticipantName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="NativeDistrict" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PermissionFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PermissionTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PoliceStattion">
+          <Key>
+            <PropertyRef Name="Ps_Id" />
+          </Key>
+          <Property Name="Ps_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaId" Type="Int32" />
+          <Property Name="Ps_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Ps_Contact_No" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaId" Type="Int32" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Emaild" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vw_ApplicationDetail">
+          <Key>
+            <PropertyRef Name="ApplicantId" />
+          </Key>
+          <Property Name="ApplicantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FunctionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Ps_Id" Type="Int32" />
+          <Property Name="AreaId" Type="Int32" />
+          <Property Name="FunctionDate" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Funcdt" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Files_FileType">
+          <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
+          <End Role="Files" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileType">
+              <PropertyRef Name="FileTypeId" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="FileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ePermissionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApplicationDetails" EntityType="Self.ApplicationDetail" />
+          <EntitySet Name="Areas" EntityType="Self.Area" />
+          <EntitySet Name="Files" EntityType="Self.File" />
+          <EntitySet Name="FileTypes" EntityType="Self.FileType" />
+          <EntitySet Name="ParticipantDetails" EntityType="Self.ParticipantDetail" />
+          <EntitySet Name="PoliceStattions" EntityType="Self.PoliceStattion" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="vw_ApplicationDetail" EntityType="Self.vw_ApplicationDetail" />
+          <AssociationSet Name="FK_Files_FileType" Association="Self.FK_Files_FileType">
+            <End Role="FileType" EntitySet="FileTypes" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <FunctionImport Name="sp_ApplicationDetail" ReturnType="Collection(ePermissionModel.sp_ApplicationDetail_Result)">
+            <Parameter Name="applicationid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ParticipantDetail" ReturnType="Collection(ePermissionModel.sp_ParticipantDetail_Result)">
+            <Parameter Name="applicationid" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_ApplicationDetail_Result">
+          <Property Type="Int32" Name="ApplicantId" Nullable="false" />
+          <Property Type="String" Name="ApplicationNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FunctionType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FathersName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="MobileNo" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="FunctionDate" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="FromTime" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ToTime" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Venue" Nullable="true" />
+          <Property Type="String" Name="WorkingPlaceSize" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="TotalSittingCapacity" Nullable="true" />
+          <Property Type="String" Name="IdProof" Nullable="true" />
+          <Property Type="String" Name="AddressProof" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="TotalParticipant" Nullable="true" />
+          <Property Type="String" Name="Duration" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Ps_Id" Nullable="true" />
+          <Property Type="String" Name="Ps_Name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="AreaId" Nullable="true" />
+          <Property Type="String" Name="Ps_Contact_No" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Remarks" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_ParticipantDetail_Result">
+          <Property Type="String" Name="ParticipantName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Age" Nullable="true" />
+          <Property Type="String" Name="MobileNo" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="NativeDistrict" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PermissionFrom" Nullable="true" />
+          <Property Type="String" Name="PermissionTo" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ePermissionModelStoreContainer" CdmEntityContainer="ePermissionEntities">
+          <EntitySetMapping Name="ApplicationDetails">
+            <EntityTypeMapping TypeName="ePermissionModel.ApplicationDetail">
+              <MappingFragment StoreEntitySet="ApplicationDetail">
+                <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+                <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
+                <ScalarProperty Name="FunctionType" ColumnName="FunctionType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FathersName" ColumnName="FathersName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="Ps_Id" ColumnName="Ps_Id" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="FunctionDate" ColumnName="FunctionDate" />
+                <ScalarProperty Name="FromTime" ColumnName="FromTime" />
+                <ScalarProperty Name="ToTime" ColumnName="ToTime" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="TotalSittingCapacity" ColumnName="TotalSittingCapacity" />
+                <ScalarProperty Name="WorkingPlaceSize" ColumnName="WorkingPlaceSize" />
+                <ScalarProperty Name="TotalParticipant" ColumnName="TotalParticipant" />
+                <ScalarProperty Name="IdProof" ColumnName="IdProof" />
+                <ScalarProperty Name="AddressProof" ColumnName="AddressProof" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Areas">
+            <EntityTypeMapping TypeName="ePermissionModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Files">
+            <EntityTypeMapping TypeName="ePermissionModel.File">
+              <MappingFragment StoreEntitySet="Files">
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+                <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="FileLocation" ColumnName="FileLocation" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="SystemFileName" ColumnName="SystemFileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileTypes">
+            <EntityTypeMapping TypeName="ePermissionModel.FileType">
+              <MappingFragment StoreEntitySet="FileType">
+                <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
+                <ScalarProperty Name="FileTypeName" ColumnName="FileTypeName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParticipantDetails">
+            <EntityTypeMapping TypeName="ePermissionModel.ParticipantDetail">
+              <MappingFragment StoreEntitySet="ParticipantDetail">
+                <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+                <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+                <ScalarProperty Name="ParticipantName" ColumnName="ParticipantName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="NativeDistrict" ColumnName="NativeDistrict" />
+                <ScalarProperty Name="PermissionFrom" ColumnName="PermissionFrom" />
+                <ScalarProperty Name="PermissionTo" ColumnName="PermissionTo" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PoliceStattions">
+            <EntityTypeMapping TypeName="ePermissionModel.PoliceStattion">
+              <MappingFragment StoreEntitySet="PoliceStattion">
+                <ScalarProperty Name="Ps_Id" ColumnName="Ps_Id" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="Ps_Name" ColumnName="Ps_Name" />
+                <ScalarProperty Name="Ps_Contact_No" ColumnName="Ps_Contact_No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ePermissionModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Emaild" ColumnName="Emaild" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_ApplicationDetail">
+            <EntityTypeMapping TypeName="ePermissionModel.vw_ApplicationDetail">
+              <MappingFragment StoreEntitySet="vw_ApplicationDetail">
+                <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+                <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
+                <ScalarProperty Name="FunctionType" ColumnName="FunctionType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Ps_Id" ColumnName="Ps_Id" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="FunctionDate" ColumnName="FunctionDate" />
+                <ScalarProperty Name="Funcdt" ColumnName="Funcdt" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_ApplicationDetail" FunctionName="ePermissionModel.Store.sp_ApplicationDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ePermissionModel.sp_ApplicationDetail_Result">
+                <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+                <ScalarProperty Name="ApplicationNo" ColumnName="ApplicationNo" />
+                <ScalarProperty Name="FunctionType" ColumnName="FunctionType" />
+                <ScalarProperty Name="FathersName" ColumnName="FathersName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="FunctionDate" ColumnName="FunctionDate" />
+                <ScalarProperty Name="FromTime" ColumnName="FromTime" />
+                <ScalarProperty Name="ToTime" ColumnName="ToTime" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="WorkingPlaceSize" ColumnName="WorkingPlaceSize" />
+                <ScalarProperty Name="TotalSittingCapacity" ColumnName="TotalSittingCapacity" />
+                <ScalarProperty Name="IdProof" ColumnName="IdProof" />
+                <ScalarProperty Name="AddressProof" ColumnName="AddressProof" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TotalParticipant" ColumnName="TotalParticipant" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Ps_Id" ColumnName="Ps_Id" />
+                <ScalarProperty Name="Ps_Name" ColumnName="Ps_Name" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="Ps_Contact_No" ColumnName="Ps_Contact_No" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ParticipantDetail" FunctionName="ePermissionModel.Store.sp_ParticipantDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ePermissionModel.sp_ParticipantDetail_Result">
+                <ScalarProperty Name="ParticipantName" ColumnName="ParticipantName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="NativeDistrict" ColumnName="NativeDistrict" />
+                <ScalarProperty Name="PermissionFrom" ColumnName="PermissionFrom" />
+                <ScalarProperty Name="PermissionTo" ColumnName="PermissionTo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
